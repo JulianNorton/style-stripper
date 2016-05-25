@@ -79,10 +79,10 @@ def style_stripper():
         selector_processor(selector)
 
     ###########################
-    # Is the newer stylesheet smaller than the new one?
-
+    # Calculate difference in character count
     before_stylesheet = ''.join(before_stylesheet)
-    after_stylesheet = ''.join(before_stylesheet)
+    # after_stylesheet = ''.join(after_stylesheet)
+    after_stylesheet = str(after_stylesheet)
     print('Char length Before', len(before_stylesheet))
     print('Char length After', len(after_stylesheet))
 
