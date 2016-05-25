@@ -80,9 +80,8 @@ def style_stripper():
 
     ###########################
     # Calculate difference in character count
-    before_stylesheet = ''.join(before_stylesheet)
+    # before_stylesheet = ''.join(before_stylesheet)
     # after_stylesheet = ''.join(after_stylesheet)
-    after_stylesheet = str(after_stylesheet)
     print('Char length Before', len(before_stylesheet))
     print('Char length After', len(after_stylesheet))
 
@@ -99,7 +98,6 @@ def style_stripper():
     toFile = after_stylesheet
     file1.write(toFile)
     file1.close()
-
 
     print(saved_path)
 
