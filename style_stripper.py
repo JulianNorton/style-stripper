@@ -1,3 +1,5 @@
+import os
+
 def style_stripper():
 
     print('\n\n')
@@ -70,7 +72,6 @@ def style_stripper():
             # print('No chunks edited')
             pass
 
-
     ###########################
     # Searches all of the stylesheet chunks for the selectors
     for selector in range(0,len(list_styles)):
@@ -79,14 +80,28 @@ def style_stripper():
 
     ###########################
     # Is the newer stylesheet smaller than the new one?
-    # print('before_stylesheet', len(before_stylesheet.join()))
+
     before_stylesheet = ''.join(before_stylesheet)
+    after_stylesheet = ''.join(before_stylesheet)
     print('Char length Before', len(before_stylesheet))
     print('Char length After', len(after_stylesheet))
 
     print('Compressed %: ', len(after_stylesheet)/len(before_stylesheet))
 
     print('\n')
+
+    ###########################
+    # Writing new stylesheet to new file
+    saved_path = os.getcwd()
+    name_of_file = 'clean'
+    completeName = os.path.join(saved_path, name_of_file+".css")
+    file1 = open(completeName, "w")
+    toFile = after_stylesheet
+    file1.write(toFile)
+    file1.close()
+
+
+    print(saved_path)
 
 style_stripper()
 
