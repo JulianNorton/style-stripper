@@ -39,7 +39,7 @@ def style_stripper():
     # print(len(list_styles))
     # for selector_index in range(0,len(list_styles)):
     # print(len(before_stylesheet), len(after_stylesheet), 'len before/after')
-    for selector_index in range(0,2):
+    for selector_index in range(0,len(list_styles)):
     # for selector_index in range(0,4):
         # print(list_styles[selector_index])
         selector = list_styles[selector_index]
@@ -81,7 +81,7 @@ def style_stripper():
     ##########################
     # Writing new file
     saved_path = os.getcwd()
-    name_of_file = 'After'
+    name_of_file = 'clean'
     completeName = os.path.join(saved_path, name_of_file+".css")
     file1 = open(completeName, "w")
     toFile = after_stylesheet
@@ -93,11 +93,11 @@ def style_stripper():
     # Size comparison
     statinfo_original = os.stat('original_stylesheet.css').st_size
     statinfo_before = os.stat('before_stylesheet.css').st_size
-    statinfo_after = os.stat('After.css').st_size
+    statinfo_after = os.stat('clean.css').st_size
     print('\n')
     print(statinfo_original/1000, '~ kilobytes || original css')
     print(statinfo_before/1000, '~ kilobytes || before css')
-    print(statinfo_after/1000, '~ kilobytes || After css')
+    print(statinfo_after/1000, '~ kilobytes || clean css')
 
 
 style_stripper()
