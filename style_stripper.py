@@ -2,7 +2,7 @@ import os
 
 def style_stripper():
 
-    print('\n\n')
+    print('\n\n\n\n')
 
     ###########################
     # importing unused styles
@@ -16,7 +16,19 @@ def style_stripper():
     # importing full stylesheet
     before_stylesheet_file = open('style.css')
     before_stylesheet = before_stylesheet_file.readlines()
-    before_stylesheet_file.close()
+    original_stylesheet = before_stylesheet
+    before_stylesheet_file.close()  
+    before_stylesheet = ''.join(before_stylesheet)
+
+    saved_path = os.getcwd()
+    name_of_file = 'before_stylesheet'
+    completeName = os.path.join(saved_path, name_of_file+".css")
+    file1 = open(completeName, "w")
+    toFile = before_stylesheet
+    file1.write(toFile)
+    file1.close()
+
+    after_stylesheet = str()
 
     ###########################
     # Cleaning audit list for bad commas
@@ -24,73 +36,41 @@ def style_stripper():
         if css_selector[-1] == ',':
             css_selector = css_selector[:-1]
 
-    after_stylesheet = list()
-    def selector_processor(x):
-        i = 0
-        did_find = list()
-        while i < len(before_stylesheet):
-            selector = str(x)
-            # Chunks are each 'item' in before_stylesheet
-            # If there are no whitespaces, there will only be 1 chunk.
-            stylesheet_chunk = before_stylesheet[i]
 
-            # Try and find location of the selector
-            try:
-                selector_location_beginning = stylesheet_chunk.index(selector)
-                # print(selector_location_beginning, ' || selector location begins')
+        
+    # print(len(list_styles))
+    # for selector_index in range(0,len(list_styles)):
+    # print(len(before_stylesheet), len(after_stylesheet), 'len before/after')
+    for selector_index in range(0,3):
+        # print(list_styles[selector_index])
+        selector = list_styles[selector_index]
+        # Try and find location of the selector
+        if selector in before_stylesheet:
+            # print(selector, 'selector found!')
+            selector_location_beginning = before_stylesheet.index(selector)
+            # print(before_stylesheet.index(selector))
+            # # Single bracket?
+            # print('single bracket found')
+            closing_bracket_index = before_stylesheet[selector_location_beginning:].index('}')
+            print(before_stylesheet[closing_bracket_index: closing_bracket_index + 1], 'c')
+            print(before_stylesheet[closing_bracket_index: closing_bracket_index + 2], 'd')
+            if before_stylesheet[closing_bracket_index: closing_bracket_index + 2] == '}}':
+                print('Double bracket')
+                print(selector)
+            elif before_stylesheet[closing_bracket_index: closing_bracket_index + 1] == '}':
+                print('single bracket')
+                print(selector)
+            # if before_stylesheet[closing_bracket_index: closing_bracket_index + 1] == '}}':
+            #     print('double bracket!')
+            #     closing_bracket_index = before_stylesheet[selector_location_beginning:].index('}') + 1
+            #     print(closing_bracket_index)
+            # else:
+            #     print('No double bracket')
+            #     print('fail')
 
-                # Find range of styles for that selector
-                styles_index_beginning = stylesheet_chunk[selector_location_beginning:].index('{')
-                # +1 for index because we want to include the '}'
-                styles_index_end = stylesheet_chunk[selector_location_beginning:].index('}') + 1 
 
-                # print(styles_index_end, ' || how long the selection + styles are')
-                # Ran
-                selector_range = stylesheet_chunk[selector_location_beginning: selector_location_beginning + styles_index_end]
-                selector_range_index = selector_location_beginning + styles_index_end
-                # print(selector_range, '|| selection range')
-
-
-                # print('length before:        ', len(stylesheet_chunk))
-                stylesheet_chunk = stylesheet_chunk[:selector_location_beginning] + stylesheet_chunk[selector_range_index:]
-                # print('length after deletion:' ,len(stylesheet_chunk))
-
-                # If it's found, save which chunk it was found in
-                did_find.append(i)
-
-            except:
-                # print(selector, 'not found in stylesheet_chunk', '#',i)
-                pass
-
-            after_stylesheet.append(stylesheet_chunk)
-            i += 1
-
-        if did_find != list():
-            # print('Chunks edited:', did_find)
-            pass
-        else:
-            # print('No chunks edited')
-            pass
-
-    ###########################
-    # Searches all of the stylesheet chunks for the selectors
-    for selector in range(0,len(list_styles)):
-        # print(selector)
-        selector_processor(selector)
-
-    ###########################
-    # Calculate difference in character count
-    # before_stylesheet = ''.join(before_stylesheet)
-    # after_stylesheet = ''.join(after_stylesheet)
-    print('Char length Before', len(before_stylesheet))
-    print('Char length After', len(after_stylesheet))
-
-    print('Compressed %: ', len(after_stylesheet)/len(before_stylesheet))
-
-    print('\n')
-
-    ###########################
-    # Writing new stylesheet to new file
+    ##########################
+    # Writing new file
     saved_path = os.getcwd()
     name_of_file = 'clean'
     completeName = os.path.join(saved_path, name_of_file+".css")
@@ -99,7 +79,16 @@ def style_stripper():
     file1.write(toFile)
     file1.close()
 
-    print(saved_path)
+
+    ##########################
+    # Size comparison
+    statinfo_original = os.stat('original_stylesheet.css').st_size
+    statinfo_before = os.stat('before_stylesheet.css').st_size
+    statinfo_after = os.stat('clean.css').st_size
+    print('\n')
+    # print(statinfo_original/1000, '~ kilobytes || original css')
+    # print(statinfo_before/1000, '~ kilobytes || before css')
+    # print(statinfo_after/1000, '~ kilobytes || clean css')
+
 
 style_stripper()
-
