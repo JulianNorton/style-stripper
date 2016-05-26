@@ -74,9 +74,10 @@ def style_stripper():
     statinfo_original = os.stat('original_stylesheet.css').st_size
     # statinfo_before = os.stat('before_stylesheet.css').st_size
     statinfo_after = os.stat('clean.css').st_size
-    print('Original css (KB) ==', statinfo_original/1000)
+    print('Original css  ==', statinfo_original/1000, 'kb')
     # print(statinfo_before/1000, '~ kilobytes || before css')
-    print('Clean css (KB)    == ', statinfo_after/1000)
+    print('Clean css     ==', statinfo_after/1000, 'kb')
+    print('              ==', statinfo_after/statinfo_original, '%')
 
 
 style_stripper()
