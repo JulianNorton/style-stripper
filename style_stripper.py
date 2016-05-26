@@ -35,7 +35,8 @@ def style_stripper():
         if css_selector[-1] == ',':
             css_selector = css_selector[:-1]
 
-        
+    ###########################
+    # Try and find matching selectors and styles to remove
     for selector_index in range(0,len(list_styles)):
         selector = list_styles[selector_index]
         # Try and find location of the selector
@@ -53,8 +54,8 @@ def style_stripper():
             after_stylesheet = after_stylesheet[:selector_location_beginning] + after_stylesheet[closing_bracket_index:]
         else:
             print('selector not found', selector)
-
-
+    
+    # Remove unnecessary white spaces
     after_stylesheet = after_stylesheet.replace('\n', '')
     after_stylesheet = after_stylesheet.replace('  ', '')
 
@@ -67,7 +68,6 @@ def style_stripper():
     toFile = after_stylesheet
     file1.write(toFile)
     file1.close()
-
 
     ##########################
     # Size comparison
