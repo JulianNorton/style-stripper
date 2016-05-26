@@ -2,8 +2,6 @@ import os
 
 def style_stripper():
 
-    print('\n\n\n\n')
-
     ###########################
     # importing unused styles
     list_styles = list()
@@ -77,7 +75,6 @@ def style_stripper():
     print('Original css  ==', statinfo_original/1000, 'kb')
     # print(statinfo_before/1000, '~ kilobytes || before css')
     print('Clean css     ==', statinfo_after/1000, 'kb')
-    print('              ==', statinfo_after/statinfo_original, '%')
-
+    print('              ==', statinfo_after/statinfo_original, '%', '\n')
 
 style_stripper()
